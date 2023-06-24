@@ -4,17 +4,24 @@ import (
 	"adams549659584/go-proxy-bingai/api"
 	"log"
 	"net/http"
+	"os"
 	"time"
 )
 
 func main() {
-	http.HandleFunc("/sydney/ChatHub", api.ChatHub)
+	http.HandleFunc("/sysconf", api.SysConf)
+
+	http.HandleFunc("/sydney/", api.Sydney)
 
 	http.HandleFunc("/web/", api.WebStatic)
 
 	http.HandleFunc("/", api.Index)
 
-	addr := ":8080"
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+	addr := ":" + port
 
 	log.Println("Starting BingAI Proxy At " + addr)
 
